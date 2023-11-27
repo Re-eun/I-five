@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>script 태그 연습하기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module">
+
+        //파이어베이스 세팅 부분 생략
+
+        //토글 - 팀 정보 / 팀 룰 (제목 id, 글 id 순서)
+        $("#teamInfo").click(async function () {
+            $('#teamInfoText').toggle();
+        })
+
+        $("#teamRule").click(async function () {
+            $('#teamRuleText').toggle();
+        })
+
+    </script>
+</head>
+
+<body>
+    <div class="team1">
+        <h3 id="teamInfo">우리 팀은?</h3>
+        <p id="teamInfoText">
+            팀 특징<br>
+            - I가 5개지요<br><br>
+            팀 목표<br>
+            - 여러사람과의 프로젝트 진행을 경험해보고 내 것으로 만들 수 있는 사람이 되자</p>
+    </div>
+    <div class="team2">
+        <h3 id="teamRule">팀 룰</h3>
+        <p id="teamRuleText">
+            모르는 부분은 넘어가지 말고 함께 되짚어간다는 마인드로 적극 참여하기 - 재은<br>
+            서로의 성장을 위해 질문 많이 하기 - 노하영<br>
+            최선을 다하기 - 이인재<br>
+            항상 새로 배운다는 마음가짐으로 초심 잃지 않기 -선병</p>
+    </div>
+    <div>
+        <a href="detail1.html">
+            <img src="data:image/jpeg;base64,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">
+        </a>
+    </div>
+</body>
+</html>
