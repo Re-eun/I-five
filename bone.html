@@ -10,6 +10,42 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+        .time {
+            background-color: white;
+            font-size: 24px;
+            margin-left: 1300px;
+            margin-top: 10px;
+
+
+        }
+
+        .weather {
+            font-size: 10px;
+            margin-left: 1460px;
+            margin-top: 5px;
+            width: 100px;
+            height: 50px;
+        }
+
+        .bangmungup {
+            width: 100px;
+
+
+        }
+
+        .bangmungup2 {
+            width: 100px;
+
+
+        }
+
+
+        .bangmungup3 {
+            width: 800px;
+
+
+        }
     </style>
 
 
@@ -36,11 +72,11 @@
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const offset = new Date().getTimezoneOffset() * 60000;
 
+        const offset = new Date().getTimezoneOffset() * 60000;
         const today = new Date(Date.now() - offset);
 
-        document.getElementById('currentDatetime').value = today.toISOString().slice(0,16);
+        document.getElementById('currentDatetime').value = today.toISOString().slice(0, 16);
 
 
         let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
@@ -58,9 +94,12 @@
 
             let name = $('#name').val();
             let content = $('#content').val();
+            let pass = $('#pass').val();
+
 
             let doc = {
                 'name': name,
+                'pass': pass,
                 'content': content
 
             };
@@ -77,12 +116,14 @@
 
 
             let name = row['name'];
+            let pass = row['pass'];
             let content = row['content'];
 
 
             let temp_html = `
             <div class="card-body">
                 <h5 class="card-title">${name}</h5>
+                
                 <p class="card-text">${content}</p>
                 <a href="#" id="del" class="btn btn-danger">삭제</a>
                 <a href="#" id="ch" class="btn btn-light">수정</a>
@@ -90,19 +131,28 @@
             $('#naeyongdw').append(temp_html);
         });
 
+
     </script>
 
 </head>
 
 <body>
 
-    <div class="weather">
+    <div class="time">
         <form>
             <input type="datetime-local" id='currentDatetime' />
         </form>
-        <p>현재 서울의 온도 : <span id="tempu">1</span>도 </p>
-        <p>현재 서울의 구름 : <span id="cloud">50</span> </p>
+    </div>
 
+
+    <div class="weather">
+        <div class="card" style="width: 10rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">현재 서울의 온도 : <span id="tempu">1</span>도</li>
+                <li class="list-group-item">현재 서울의 구름 : <span id="cloud">50</span></li>
+
+            </ul>
+        </div>
     </div>
 
 
@@ -111,6 +161,16 @@
             <input type="email" class="form-control" id="name" placeholder="이름">
             <label for="floatingInput">이름</label>
         </div>
+    </div>
+
+    <div class="bangmungup2" id="bangmung2">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="pass" placeholder="이름">
+            <label for="floatingInput">비밀번호</label>
+        </div>
+    </div>
+
+    <div class="bangmungup3" id="bangmung3">
         <div class="form-floating mb-3">
             <input type="email" class="form-control" id="content" placeholder="내용">
             <label for="floatingInput">내용</label>
