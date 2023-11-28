@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title> main </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+        .title {
+            color: orange;
+            font-size: 50px;
+            text-align: center;
+        }
+
+        /* 이미지 */
+        #img {
+            display: flex;
+            flex-direction: row;
+            margin-left: auto;
+            margin-right: auto;
+            width: 400px;
+            height: 400px;
+            margin: 50px auto 30px auto;
+            padding: 30px 100px;
+            vertical-align: top;
+        }
+
+        /* 버튼위치 */
+        .btn1 {
+            position: fixed;
+            margin: 40px auto 0px auto;
+            padding: 30px 500px;
+        }
+
+        .btn2 {
+            position: fixed;
+            margin: 300px auto 0px auto;
+            padding: 60px 500px;
+        }
+
+       /* 박스 크기 및 색 */
+        #box1 {
+            width: 550px;
+            height: 200px;
+            padding: 10px 30px;
+            margin: 0px auto 100px auto;
+            float: right;
+            margin-left: 10%;
+            background-color: lightblue;
+        }
+
+        #box2 {
+            width: 550px;
+            height: 200px;
+            padding: 10px 30px;
+            float: right;
+            margin-left: 10%;
+            background-color: lightblue;
+        }
+
+        /* 그림자 */
+        .top {
+            box-shadow: 5px 5px 5px 5px gray;
+            align-items: center;
+            vertical-align: top;
+        }
+    </style>
+
+    <script>
+        // 온버튼
+        function btn1(){
+            $('#box1').toggle();
+        }
+        function btn2(){
+            $('#box2').toggle();
+        }
+    </script>
+</head>
+
+
+
+<body>
+    <p> A팀 1조</p>
+    <h1 class="title"> I FIVE! </h1>
+    <!-- 이미지 -->
+    <div id="img" style="display:inline-block;vertical-align:top;">
+        <img src="image_png.png"
+            style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:900px; height:700px; border: outset 10px gray;"
+            alt="img" />
+    </div>
+
+    <!-- 팀 소개, 팀 룰 -->
+    <div style="display:inline-block;">
+        <div class="btn1">
+            <h2 onclick="btn1()" id="teamRule">우리들은?</h2>
+            <div id="box1" class="top" style="display: none;">
+                <h4> 팀 특징</h4>
+                <p><code> I가 5개지요</code></p>
+                <h4> 팀 목표</h4>
+                <p><code> 여러사람과의 프로젝트 진행을 경험해보고 내 것으로 만들 수 있는 사람이 되자</code></p>
+            </div>
+        </div>
+        <div class="btn2">
+            <h2 onclick="btn2()" id="teamRule"> 팀룰</h2>
+        <div id="box2" class="top" style="display: none;">
+            <p><code> 모르는 부분은 넘어가지 말고 함께 되짚어간다는 마인드로 적극 참여하기 -재은</code></p>
+            <p><code> 서로의 성장을 위해 질문 많이 하기 - 노하영</code></p>
+            <p><code> 최선을 다하기 - 이인재</code></p>
+            <p><code> 항상 새로 배운다는 마음가짐으로 초심 잃지 않기 -선병</code></p>
+            <p><code> 포기하지 말고 될때까지 해보기 - 김민정</code></p>
+        </div>
+    </div>
+</body>
+</html>
