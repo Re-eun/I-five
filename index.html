@@ -28,7 +28,7 @@
             display: flex;
             width: 800px;
             height: 500px;
-            padding: 10px 100px;
+            padding: 10px 60px;
             vertical-align: top;
         }
 
@@ -36,10 +36,20 @@
         /* 박스 크기 및 색 */
         #teamInfoText {
             background-color: lightblue;
+            margin: 10px 20px 10px 100px;
         }
 
         #teamRuleText {
             background-color: lightblue;
+            margin: 10px 20px 10px 100px;
+        }
+
+        #teamInfo{
+            margin: 30px 20px 10px 100px;
+        }
+
+        #teamRule{
+            margin: 10px 20px 10px 100px;
         }
 
         .top {
@@ -59,41 +69,28 @@
             width: 10px;
             height: 10px;
         }
-
         .time {
             background-color: white;
             font-size: 24px;
-            margin-left: 1300px;
-            margin-top: 10px;
-
+            margin: 10px auto auto 1300px;
 
         }
 
         .weather {
             font-size: 10px;
-            margin-left: 1460px;
-            margin-top: 5px;
-            width: 100px;
-            height: 50px;
+            margin: 5px auto auto 1460px;
         }
 
         .bangmungup {
             width: 100px;
-
-
         }
 
         .bangmungup2 {
             width: 100px;
-
-
         }
-
 
         .bangmungup3 {
             width: 800px;
-
-
         }
     </style>
 
@@ -104,7 +101,7 @@
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        // 파이어 베이스 연동
         const firebaseConfig = {
             apiKey: "AIzaSyCrPxJOEaF9O_Pug7JnmymvKeOYlDWc23k",
             authDomain: "sparta-751ac.firebaseapp.com",
@@ -114,6 +111,7 @@
             appId: "1:840913343912:web:525c165b34787ce619f99d",
             measurementId: "G-RE165C25JQ"
         };
+
 
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
@@ -194,8 +192,7 @@
 </head>
 
 <body>
-    <p> A반 1조 </p>
-
+    <p> A팀 1조 </p>
     <div class="time">
         <form>
             <input type="datetime-local" id='currentDatetime' />
@@ -212,11 +209,11 @@
         </div>
     </div>
 
+
     <h1 class="title"> I FIVE! </h1>
 
     <div id="imag" style="display:inline-block;vertical-align:top;">
-        <img src="images/단체사진.png"
-            style="
+        <img src="images/단체사진.png" style="
             float:left 50%;  
             margin-right: 50px; 
             margin-bottom: 10px; 
