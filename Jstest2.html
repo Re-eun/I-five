@@ -16,29 +16,29 @@
         }
 
         /* 이미지 */
-        #img {
+        #imag {
             display: flex;
             flex-direction: row;
             margin-left: auto;
             margin-right: auto;
-            width: 500px;
-            height: 500px;
-            margin: 50px auto 30px auto;
-            padding: 30px 100px;
+            width: 50px;
+            height: 0px;
+            padding: 10px 100px;
             vertical-align: top;
         }
-
-        /* 버튼위치 */
+        
+        
+         /* 버튼위치 */
         .teamInfobtn {
-            position: fixed;
-            margin: 40px auto 0px auto;
-            padding: 30px 500px;
+            position: relative;
+            margin:  0px auto 40px 100px;
+            padding: 10px 1000px;
         }
 
         .teamRulebtn {
-            position: fixed;
-            margin: 300px auto 0px auto;
-            padding: 60px 500px;
+            position: relative;
+            margin:  0px auto 40px 100px;
+            padding: 10px 1000px;
         }
 
        /* 박스 크기 및 색 */
@@ -68,11 +68,18 @@
             vertical-align: top;
         }
 
-        #profile {
-            width: 150px;
-            height: 200px;
-            margin: 1000px auto 10px auto;
+        /* 팀원 소개 이미지 위치 및 크기 */
+        #pro {
+            background-image: center center;
+            margin: 300px 300px;
+            padding: 100px 100px;
         }
+
+        #profile {
+            width: 10px;
+            height: 10px;
+        }
+        
     </style>
 
     <script  type="module">
@@ -86,6 +93,8 @@
         })
 
     </script>
+
+    
 </head>
 
 
@@ -93,9 +102,10 @@
 <body>
     <p> A팀 1조</p>
     <h1 class="title"> I FIVE! </h1>
+
     <!-- 이미지 -->
-    <div id="img" style="display:inline-block;vertical-align:top;">
-        <img src="https://private-user-images.githubusercontent.com/151513470/286082824-4494794f-75fd-4a85-994f-6cd152833e7c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDExMzU5MjIsIm5iZiI6MTcwMTEzNTYyMiwicGF0aCI6Ii8xNTE1MTM0NzAvMjg2MDgyODI0LTQ0OTQ3OTRmLTc1ZmQtNGE4NS05OTRmLTZjZDE1MjgzM2U3Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTEyOFQwMTQwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jNWRlYjNmYzZiY2I2MjZhOWRlMWFkMWEyY2JkZmZjYjRiZjNlOWE5NmFmMmJiNTNhNjZmYzgzYWU0OWRlMGMxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.dJyV7Yeti8-tfj7zvo0JtP9GwIACjjqRfhwFi1oMZjA"
+    <div id="imag" style="display:inline-block;vertical-align:top;">
+        <img src="images/image_png.png"
             style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:900px; height:700px; border: outset 10px gray;"
             alt="img" />
     </div>
@@ -123,7 +133,32 @@
         </div>
     </div>
 
+    <!-- 팀원 소개 -->
+    <div id="pro">
+        <h1> 팀원 소개</h1>
 
+        <div>
+            <a href="상세페이지/detail_ha.html"><img id="profile"
+                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                src="사진/1.png" alt=""></a>
+
+                <a href="상세페이지/detail_jae.html"><img id="profile"
+                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                src="사진/2.png" alt=""></a>
+
+                <a href="상세페이지/detail_min.html"><img id="profile"
+                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                src="사진/3.png" alt=""></a>
+
+                <a href="상세페이지/detail_seon.html"><img id="profile"
+                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                src="사진/4.png" alt=""></a>
+
+                <a href="상세페이지/detail_in.html"><img id="profile"
+                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                src="사진/5.png" alt=""></a>
+        </div>
+    </div>
 
 
 </body>
