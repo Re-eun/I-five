@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
-    <title> main </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <style>
@@ -15,53 +14,24 @@
             text-align: center;
         }
 
-        /* 이미지 */
         #imag {
             display: flex;
-            flex-direction: row;
-            margin-left: auto;
-            margin-right: auto;
-            width: 50px;
-            height: 0px;
+            width: 800px;
+            height: 500px;
             padding: 10px 100px;
             vertical-align: top;
         }
-        
-        
-         /* 버튼위치 */
-        .teamInfobtn {
-            position: relative;
-            margin:  0px auto 40px 100px;
-            padding: 10px 1000px;
-        }
 
-        .teamRulebtn {
-            position: relative;
-            margin:  0px auto 40px 100px;
-            padding: 10px 1000px;
-        }
 
-       /* 박스 크기 및 색 */
+        /* 박스 크기 및 색 */
         #teamInfoText {
-            width: 550px;
-            height: 200px;
-            padding: 10px 30px;
-            margin: 0px auto 100px auto;
-            float: right;
-            margin-left: 10%;
             background-color: lightblue;
         }
 
         #teamRuleText {
-            width: 550px;
-            height: 200px;
-            padding: 10px 30px;
-            float: right;
-            margin-left: 10%;
             background-color: lightblue;
         }
 
-        /* 그림자 */
         .top {
             box-shadow: 5px 5px 5px 5px gray;
             align-items: center;
@@ -71,7 +41,7 @@
         /* 팀원 소개 이미지 위치 및 크기 */
         #pro {
             background-image: center center;
-            margin: 300px 300px;
+            margin: 5px 300px;
             padding: 100px 100px;
         }
 
@@ -79,10 +49,9 @@
             width: 10px;
             height: 10px;
         }
-        
     </style>
 
-    <script  type="module">
+    <script type="module">
         // 버튼
         $("#teamInfo").click(async function () {
             $('#teamInfoText').toggle();
@@ -93,27 +62,22 @@
         })
 
     </script>
-
-    
 </head>
 
-
-
 <body>
-    <p> A팀 1조</p>
+    <p> A팀 1조 </p>
     <h1 class="title"> I FIVE! </h1>
 
-    <!-- 이미지 -->
     <div id="imag" style="display:inline-block;vertical-align:top;">
         <img src="images/image_png.png"
-            style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:900px; height:700px; border: outset 10px gray;"
-            alt="img" />
+            style="float:left 50%;  margin-right: 50px; margin-bottom: 10px; width:800px; height:500px; border: outset 10px gray; alt=">
+
     </div>
 
-    <!-- 팀 소개, 팀 룰 -->
+
     <div style="display:inline-block;">
         <div class="teamInfobtn">
-            <h2 id="teamInfo">우리들은?</h2>
+            <h2 id="teamInfo"> 우리들은? </h2>
             <div id="teamInfoText" class="top" style="display: none;">
                 <h4> 팀 특징</h4>
                 <p><code> I가 5개지요</code></p>
@@ -123,14 +87,17 @@
         </div>
 
         <div class="teamRulebtn">
-            <h2 id="teamRule"> 팀룰</h2>
-        <div id="teamRuleText" class="top" style="display: none;">
-            <p><code> 모르는 부분은 넘어가지 말고 함께 되짚어간다는 마인드로 적극 참여하기 -재은</code></p>
-            <p><code> 서로의 성장을 위해 질문 많이 하기 - 노하영</code></p>
-            <p><code> 최선을 다하기 - 이인재</code></p>
-            <p><code> 항상 새로 배운다는 마음가짐으로 초심 잃지 않기 -선병</code></p>
-            <p><code> 포기하지 말고 될때까지 해보기 - 김민정</code></p>
+            <h2 id="teamRule"> 팀룰 </h2>
+            <div id="teamRuleText" class="top" style="display: none;">
+                <p><code> 모르는 부분은 넘어가지 말고 함께 되짚어간다는 마인드로 적극 참여하기 -재은</code></p>
+                <p><code> 서로의 성장을 위해 질문 많이 하기 - 노하영</code></p>
+                <p><code> 최선을 다하기 - 이인재</code></p>
+                <p><code> 항상 새로 배운다는 마음가짐으로 초심 잃지 않기 -선병</code></p>
+                <p><code> 포기하지 말고 될때까지 해보기 - 김민정</code></p>
+            </div>
         </div>
+
+
     </div>
 
     <!-- 팀원 소개 -->
@@ -139,27 +106,29 @@
 
         <div>
             <a href="상세페이지/detail_ha.html"><img id="profile"
-                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
-                src="사진/1.png" alt=""></a>
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/1.png" alt=""></a>
 
-                <a href="상세페이지/detail_jae.html"><img id="profile"
-                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
-                src="사진/2.png" alt=""></a>
+            <a href="상세페이지/detail_jae.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/2.png" alt=""></a>
 
-                <a href="상세페이지/detail_min.html"><img id="profile"
-                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
-                src="사진/3.png" alt=""></a>
+            <a href="상세페이지/detail_min.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/3.png" alt=""></a>
 
-                <a href="상세페이지/detail_seon.html"><img id="profile"
-                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
-                src="사진/4.png" alt=""></a>
+            <a href="상세페이지/detail_seon.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/4.png" alt=""></a>
 
-                <a href="상세페이지/detail_in.html"><img id="profile"
-                style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
-                src="사진/5.png" alt=""></a>
+            <a href="상세페이지/detail_in.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/5.png" alt=""></a>
         </div>
     </div>
 
 
+
 </body>
+
 </html>
