@@ -1,0 +1,67 @@
+
+        #box {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+            margin: 50px auto 50px auto;
+        }
+
+        #box1 {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+        }
+
+        #box2 {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin-left: 50px;
+
+        }
+
+        #photo {    
+            
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        #tag {
+            height: 100px;
+            text-align: center;
+            padding: 5px 5px 5px 5px;
+            
+        }
+        #linebox {
+            height: 150px;
+        }
+        #self {
+            height: 160px;
+            margin: 10px 0 10px 0;
+            padding: 5px 5px 5px 5px;
+            
+        }
+        #positive {
+            height: 150px;
+            margin: 10px 0 10px 0;
+            padding: 5px 5px 5px 5px;
+        }
+
+        #backbtn button:hover {
+            background-color: yellow;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .line {
+            border-bottom: 1px solid gray;
+            margin: 15px auto 5px auto ;
+        }
+
+        .introduce {
+            border: 1px solid gray;
+            
+        }
