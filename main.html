@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-Five</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbit&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
+
+        /*1구역*/
+        .one {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 120px;
+        }
+
+        .one-one {
+            margin-bottom: 100px;
+        }
+
+        .time {
+            width: 200px;
+            background-color: white;
+        }
+
+        #currentDatetime {
+            width: 200px;
+        }
+
+        .weather {
+            font-size: 10px;
+            width: 200px;
+        }
+
+        .card {
+            width: 200px;
+        }
+
+        /*2구역*/
+        .title {
+            color: orange;
+            font-size: 50px;
+            text-align: center;
+            font-family: 'Black Han Sans', sans-serif;
+            margin-top: 20px;
+        }
+
+        /*3구역*/
+        .third {
+            display: flex;
+            justify-content: center;
+            margin: 40px auto 10px auto;
+        }
+
+        .team {
+            display: flex;
+        }
+
+        .top {
+            box-shadow: 3px 3px 3px 3px gray;
+            align-items: center;
+            vertical-align: top;
+        }
+
+        #teamInfo {
+            color: orange;
+            font-family: 'Gowun Batang', serif;
+        }
+
+        #teamRule {
+            color: orange;
+            font-family: 'Gowun Batang', serif;
+        }
+
+
+        #teamInfoText {
+            background-color: lightgoldenrodyellow;
+            padding: 10px;
+
+        }
+
+        #teamRuleText {
+            background-color: lightgoldenrodyellow;
+            padding: 10px;
+        }
+
+        .teamRulebtn {
+            margin-top: 3px;
+        }
+
+        /* 4구역 */
+        #pro {
+            display: flex;
+            flex-direction: column;
+            background-image: center center;
+            margin: 5px 300px;
+            padding: 100px 100px;
+
+
+        }
+
+        .teamtext {
+            text-align: center;
+            margin-bottom: 30px;
+            color: orange;
+            font-family: 'Gowun Batang', serif;
+        }
+
+        .teamimg {
+            text-align: center;
+
+
+
+        }
+
+        #profile {
+            width: 10px;
+            height: 10px;
+            vertical-align: middle;
+        }
+
+
+        .fifth {
+            width: 800px;
+            margin: 20px auto 20px auto;
+            border: 1px solid black;
+
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .write {
+
+            padding: 10px;
+        }
+
+
+
+
+        .bangmungup {
+            width: 100px;
+
+        }
+
+        .bangmungup2 {
+            width: 100px;
+
+        }
+
+        .bangmungup3 {
+            width: 800px;
+
+        }
+
+        .form-floating {
+            width: 700px;
+        }
+
+        #gogobtn {
+            margin-bottom: 20px;
+        }
+
+        #naeyongdw {
+            border: 0px;
+        }
+    </style>
+
+
+    <script type="module">
+        /// Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        //import { doc, deleteDoc } 추가
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrPxJOEaF9O_Pug7JnmymvKeOYlDWc23k",
+            authDomain: "sparta-751ac.firebaseapp.com",
+            projectId: "sparta-751ac",
+            storageBucket: "sparta-751ac.appspot.com",
+            messagingSenderId: "840913343912",
+            appId: "1:840913343912:web:525c165b34787ce619f99d",
+            measurementId: "G-RE165C25JQ"
+        };
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        export { db };
+
+        // 시간
+        const offset = new Date().getTimezoneOffset() * 60000;
+        const today = new Date(Date.now() - offset);
+
+        document.getElementById('currentDatetime').value = today.toISOString().slice(0, 16);
+
+        // 날씨
+        let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
+        fetch(url).then(res => res.json()).then(data => {
+            let temperature = data['temp']
+            $('#tempu').text(temperature)
+        })
+        fetch(url).then(res => res.json()).then(data => {
+            let cloud = data['clouds']
+            $('#cloud').text(cloud)
+        })
+
+        // 방명록 작성
+        $("#gogobtn").click(async function () {
+
+            let name = $('#name').val();
+            let content = $('#content').val();
+            let pass = $('#pass').val();
+
+            let doc = {
+                'name': name,
+                'pass': pass,
+                'content': content
+            };
+            await addDoc(collection(db, "abc"), doc);
+            alert('저장 완료!');
+            window.location.reload();
+        })
+
+        //방명록 읽기
+        let docs = await getDocs(collection(db, "abc"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+            let name = row['name'];
+            let pass = row['pass'];
+            let content = row['content'];
+
+            let temp_html = `
+            <div class="card-body" data-pass="${pass}" data-entry-id="${doc.id}">
+                <h5 class="card-title">${name}</h5>
+                
+                <p class="card-text">${content}</p>
+                <a  href="#" 
+                    id="del" 
+                    class="btn btn-danger"
+                    >삭제</a>
+                <a  href="#" 
+                    id="editBtn" 
+                    class="btn btn-light" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
+                    data-bs-id=${doc.id}
+                    data-bs-name=${name}
+                    data-bs-content=${content}
+                    data-bs-passward=${pass}
+                    >수정</a>
+            </div>`;
+            $('#naeyongdw').append(temp_html);
+        });
+
+        //방명록 삭제
+        $('#naeyongdw').on('click', '.btn-danger', async function () {
+
+            const entryId = $(this).closest('.card-body').data('entry-id');
+            console.log(entryId);
+
+            const delj = $(this).closest('.card-body').data('pass');
+
+            if (delj == prompt('비밀번호 입력')) {
+                await deleteDoc(doc(db, "abc", entryId))
+                alert('삭제완료');
+            } else {
+                alert('비밀번호 불일치')
+            }
+
+            window.location.reload();
+        })
+
+        
+
+
+
+
+        // 팀룰 토글 버튼
+        $("#teamInfo").click(async function () {
+            $('#teamInfoText').toggle();
+        })
+
+        $("#teamRule").click(async function () {
+            $('#teamRuleText').toggle();
+        })
+
+    </script>
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: darkorange;">A팀 1조</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#"></a>
+
+                    <a class="nav-link" href="#">
+                        <div class="time">
+                            <form>
+                                <input type="datetime-local" id='currentDatetime' />
+                            </form>
+                        </div>
+                    </a>
+                    <li class="list-group-item" style="margin-top: 10px;">현재 서울의 온도 : <span id="tempu">1</span>도&nbsp;
+                    </li>
+                    <p></p>
+                    <li class="list-group-item" style="margin-top: 10px;">현재 서울의 구름 : <span id="cloud">50</span></li>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!--1구역 (조, 시간, 날씨)-->
+
+
+
+
+    <!--2구역 제목-->
+    <h1 class="title"> I FIVE! </h1>
+
+
+    <!--3구역 단체, 팀-->
+    <div class="third">
+        <!--단체사진-->
+        <div id="imag">
+            <img src="사진/단체사진.png" style="
+            float:left 50%;  
+            margin-right: 50px; 
+            margin-bottom: 10px; 
+            width:800px; 
+            height:500px; 
+            border: outset 10px gray;">
+        </div>
+
+        <!--팀소개-->
+        <div style=" display : inline-block;" class="team">
+            <div class="teamInfobtn">
+                <h2 id="teamInfo"> 우리 팀은? </h2>
+                <div id="teamInfoText" class="top" style="display: none;">
+                    <h4 style="font-family: 'Orbit', sans-serif;"> 팀 특징</h4>
+                    <p><code> I가 5개지요</code></p>
+                    <h4 style="font-family: 'Orbit', sans-serif;"> 팀 목표</h4>
+                    <p><code> 여러사람과의 프로젝트 진행을 경험해보고 내 것으로 만들 수 있는 사람이 되자</code></p>
+                </div>
+            </div>
+
+            <div class="teamRulebtn">
+                <h2 id="teamRule"> 팀 규칙 </h2>
+                <div id="teamRuleText" class="top" style="display: none;">
+                    <p><code> 모르는 부분은 넘어가지 말고 함께 되짚어간다는 마인드로 적극 참여하기 -재은</code></p>
+                    <p><code> 서로의 성장을 위해 질문 많이 하기 - 하영</code></p>
+                    <p><code> 최선을 다하기 - 인재</code></p>
+                    <p><code> 항상 새로 배운다는 마음가짐으로 초심 잃지 않기 -선병</code></p>
+                    <p><code> 포기하지 말고 될때까지 해보기 - 민정</code></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--4구역 팀원 소개 -->
+    <div id="pro">
+        <h1 class="teamtext"> 팀원 소개</h1>
+        <div class="teamimg">
+            <a href="detail_jae.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/재은.jpg" alt=""></a>
+
+            <a href="detail_ha.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/하영.jpg" alt=""></a>
+
+            <a href="detail_min.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/민정.jpg" alt=""></a>
+
+            <a href="detail_seon.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/선병.jpg" alt=""></a>
+
+            <a href="detail_in.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="사진/인재.jpg" alt=""></a>
+        </div>
+    </div>
+
+    <!--5구역 방명록 작성, 읽기-->
+    <div class="fifth">
+        <div class="write">
+            <div class="bangmungup" id="bangmung">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="name" placeholder="이름">
+                    <label for="floatingInput">이름</label>
+                </div>
+            </div>
+
+            <div class="bangmungup2" id="bangmung2">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="pass" placeholder="이름">
+                    <label for="floatingInput">비밀번호</label>
+                </div>
+            </div>
+
+            <div class="bangmungup3" id="bangmung3">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="content" placeholder="내용">
+                    <label for="floatingInput">내용</label>
+                </div>
+                <button id="gogobtn" type="button" class="btn btn-primary">방명록 남기기</button>
+            </div>
+        </div>
+
+
+        <!--방명록 읽기-->
+        <div class="banmungdw" id="naeyong">
+            <div id="naeyongdw" class="card w-75 mb-3">
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--방명록 삭제-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">방명록 삭제하기</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <label class="form-label">비밀번호</label>
+                            <input type="text" class="form-control" id="edit-passward">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary">제출</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--방명록 수정-->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">방명록 수정하기</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <label class="form-label">이름</label>
+                            <input type="text" class="form-control" id="edit-name">
+                        </div>
+                        <div>
+                            <label class="form-label">내용</label>
+                            <input type="text" class="form-control" id="edit-content">
+                        </div>
+                        <div>
+                            <label class="form-label">비밀번호</label>
+                            <input type="text" class="form-control" id="edit-passward">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary">제출</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
