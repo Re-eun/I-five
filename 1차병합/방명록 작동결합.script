@@ -1,0 +1,353 @@
+<script type="module">
+        /// Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // 파이어 베이스 연동
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrPxJOEaF9O_Pug7JnmymvKeOYlDWc23k",
+            authDomain: "sparta-751ac.firebaseapp.com",
+            projectId: "sparta-751ac",
+            storageBucket: "sparta-751ac.appspot.com",
+            messagingSenderId: "840913343912",
+            appId: "1:840913343912:web:525c165b34787ce619f99d",
+            measurementId: "G-RE165C25JQ"
+        };
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        export { db };
+
+        const offset = new Date().getTimezoneOffset() * 60000;
+        const today = new Date(Date.now() - offset);
+
+        document.getElementById('currentDatetime').value = today.toISOString().slice(0, 16);
+
+        let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
+        fetch(url).then(res => res.json()).then(data => {
+            let temperature = data['temp']
+            $('#tempu').text(temperature)
+        })
+        fetch(url).then(res => res.json()).then(data => {
+            let cloud = data['clouds']
+            $('#cloud').text(cloud)
+        })
+
+        $("#gogobtn").click(async function () {
+
+            let name = $('#name').val();
+            let content = $('#content').val();
+            let pass = $('#pass').val();
+
+            let doc = {
+                'name': name,
+                'pass': pass,
+                'content': content
+            };
+
+            await addDoc(collection(db, "abc"), doc);
+
+            alert('저장 완료!');
+            window.location.reload();
+        })
+
+        let docs = await getDocs(collection(db, "abc"));
+
+        docs.forEach((doc) => {
+            let row = doc.data();
+
+            let name = row['name'];
+            let pass = row['pass'];
+            let content = row['content'];
+
+            let temp_html = `
+            <div class="card-body" data-pass="${pass}" data-entry-id="${doc.id}">
+                <h5 class="card-title">${name}</h5>
+                
+                <p class="card-text">${content}</p>
+                <a  href="#" 
+                    id="del" 
+                    class="btn btn-danger"
+                    >삭제</a>
+                <a  href="#" 
+                    id="editBtn" 
+                    class="btn btn-light" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
+                    data-bs-id=${doc.id}
+                    data-bs-name=${name}
+                    data-bs-content=${content}
+                    data-bs-passward=${pass}
+                    >수정</a>
+            </div>`;
+            $('#naeyongdw').append(temp_html);
+        });
+
+        // 버튼
+        $("#teamInfo").click(async function () {
+            $('#teamInfoText').toggle();
+        })
+
+        $("#teamRule").click(async function () {
+            $('#teamRuleText').toggle();
+        })
+
+        $('#naeyongdw').on('click', '.btn-danger', async function () {
+
+            
+            const entryId = $(this).closest('.card-body').data('entry-id');
+            console.log(entryId);
+
+            
+
+
+            const delj = $(this).closest('.card-body').data('pass');
+
+                
+            if (delj == prompt('비밀번호 입력')) {
+                await deleteDoc(doc(db, "abc", entryId))
+                alert('삭제완료');
+            } else {
+                alert('비밀번호 불일치')
+            }
+
+            window.location.reload();
+        })
+
+
+
+
+
+        {
+            const commentEditModal = document.querySelector("#editModal");
+            commentEditModal.addEventListener("show.bs.modal", function (event) {
+
+                const triggerBtn = event.relatedTarget;
+
+                const editId = triggerBtn.getAttribute("data-bs-id");
+                const editName = triggerBtn.getAttribute("data-bs-name");
+                const editContent = triggerBtn.getAttribute("data-bs-content");
+                const editPassward = triggerBtn.getAttribute("data-bs-pass");
+
+                document.querySelector("#edit-name").value = editName;
+                document.querySelector("#edit-content").value = editContent;
+                document.querySelector("#edit-docid").value = editId;
+            })
+
+            const editCheckBtn = document.querySelector("#editcheckBtn");
+            editCheckBtn.addEventListener("click", async function () {
+
+                const docId = document.querySelector("#edit-docid").value;
+
+                const comment = await getDoc(doc(db, "abc", `${docId}`));
+                const commentData = comment.data();
+                const RightPassward = commentData['pass'];
+
+                const WrittenPassward =
+                    document.querySelector("#edit-writtenpassward").value;
+
+                console.log(`저장된 비밀번호: ${RightPassward}`);
+                console.log(`입력한 비밀번호: ${WrittenPassward}`);
+
+                if (RightPassward != WrittenPassward) {
+                    alert('비밀번호가 틀렸습니다!');
+                    window.location.reload();
+                    return;
+                }
+
+                const newComment = {
+                    name: document.querySelector("#edit-name").value,
+                    content: document.querySelector("#edit-content").value
+                };
+
+                console.log(newComment);
+                console.log(docId);
+
+                await updateDoc(doc(db, "abc", `${docId}`), {
+                    name: document.querySelector("#edit-name").value,
+                    content: document.querySelector("#edit-content").value
+                });
+
+                alert('수정 완료!');
+                window.location.reload();
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <p> A반 1조 </p>
+    <div class="time">
+        <form>
+            <input type="datetime-local" id='currentDatetime' />
+        </form>
+    </div>
+
+    <div class="weather">
+        <div class="card" style="width: 10rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">현재 서울의 온도 : <span id="tempu">1</span>도</li>
+                <li class="list-group-item">현재 서울의 구름 : <span id="cloud">50</span></li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <h1 class="title"> I FIVE! </h1>
+
+    <div id="imag" style="display:inline-block;vertical-align:top;">
+        <img src="images/단체사진.png" style="
+            float:left 50%;  
+            margin-right: 50px; 
+            margin-bottom: 10px; 
+            width:800px; 
+            height:500px; 
+            border: outset 10px gray;">
+    </div>
+
+    <div style=" display : inline-block;">
+        <div class="teamInfobtn">
+            <h2 id="teamInfo"> 우리들은? </h2>
+            <div id="teamInfoText" class="top" style="display: none;">
+                <h4> 팀 특징</h4>
+                <p><code> I가 5개지요</code></p>
+                <h4> 팀 목표</h4>
+                <p><code> 여러사람과의 프로젝트 진행을 경험해보고 내 것으로 만들 수 있는 사람이 되자</code></p>
+            </div>
+        </div>
+
+        <div class="teamRulebtn">
+            <h2 id="teamRule"> 팀룰 </h2>
+            <div id="teamRuleText" class="top" style="display: none;">
+                <p><code> 모르는 부분은 넘어가지 말고 함께 되짚어간다는 마인드로 적극 참여하기 -재은</code></p>
+                <p><code> 서로의 성장을 위해 질문 많이 하기 - 노하영</code></p>
+                <p><code> 최선을 다하기 - 이인재</code></p>
+                <p><code> 항상 새로 배운다는 마음가짐으로 초심 잃지 않기 -선병</code></p>
+                <p><code> 포기하지 말고 될때까지 해보기 - 김민정</code></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 팀원 소개 -->
+    <div id="pro">
+        <h1> 팀원 소개</h1>
+
+        <div>
+            <a href="detail_jae.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="images/1.png" alt=""></a>
+
+            <a href="detail_ha.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="images/2.png" alt=""></a>
+
+            <a href="detail_min.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="images/3.png" alt=""></a>
+
+            <a href="detail_seon.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="images/5.png" alt=""></a>
+
+            <a href="detail_in.html"><img id="profile"
+                    style="float:left 50%;  margin-right: 50px; margin-bottom: 10px;  width:150px; height:200px;"
+                    src="images/4.png" alt=""></a>
+        </div>
+    </div>
+
+    <div class="bangmungup" id="bangmung">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="name" placeholder="이름">
+            <label for="floatingInput">이름</label>
+        </div>
+    </div>
+
+    <div class="bangmungup2" id="bangmung2">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="pass" placeholder="이름">
+            <label for="floatingInput">비밀번호</label>
+        </div>
+    </div>
+
+    <div class="bangmungup3" id="bangmung3">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="content" placeholder="내용">
+            <label for="floatingInput">내용</label>
+        </div>
+        <button type="button" id="gogobtn" class="btn btn-primary">방명록 남기기
+        </button>
+    </div>
+
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">방명록 삭제하기</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <label class="form-label">비밀번호</label>
+                            <input type="text" class="form-control" id="edit-passward">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary">제출</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">방명록 수정하기</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <label class="form-label">이름</label>
+                            <input type="text" class="form-control" id="edit-name">
+                        </div>
+                        <div>
+                            <label class="form-label">내용</label>
+                            <input type="text" class="form-control" id="edit-content">
+                        </div>
+                        <div>
+                            <label class="form-label">비밀번호를 입력하세요</label>
+                            <input type="text" class="form-control" id="edit-writtenpassward">
+                        </div>
+                        <div>
+                            <input type="hidden" class="form-control" id="edit-docid">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button id="editcheckBtn" type="button" class="btn btn-primary">수정</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="banmungdw" id="naeyong">
+        <div id="naeyongdw" class="card w-75 mb-3">
+        </div>
+    </div>
+
+
+</body>
+
+</html>
