@@ -210,21 +210,24 @@
                 document.querySelector("#edit-name").value = editName;
                 document.querySelector("#edit-content").value = editContent;
                 document.querySelector("#edit-docid").value = editId;
-                document.querySelector("#edit-passward").value = editPassward;
-
-                console.log(editName);
             })
-
 
             const editCheckBtn = document.querySelector("#editcheckBtn");
             editCheckBtn.addEventListener("click", async function () {
 
                 const docId = document.querySelector("#edit-docid").value;
 
-                const Rpassward = await getDoc(doc(db, "abc", `${docId}`));
-                const Wpassward = document.querySelector("#edit-passward").value;
+                const comment = await getDoc(doc(db, "abc", `${docId}`));
+                const commentData = comment.data();
+                const RightPassward = commentData['pass'];
 
-                if (Rpassward.data['pass'] != Wpassward) {
+                const WrittenPassward = 
+                document.querySelector("#edit-writtenpassward").value;
+
+                console.log(`저장된 비밀번호: ${RightPassward}`);
+                console.log(`입력한 비밀번호: ${WrittenPassward}`);
+
+                if (RightPassward != WrittenPassward) {
                     alert('비밀번호가 틀렸습니다!');
                     window.location.reload();
                     return;
@@ -350,7 +353,7 @@
             <input type="email" class="form-control" id="content" placeholder="내용">
             <label for="floatingInput">내용</label>
         </div>
-        <button id="gogobtn" type="button" class="btn btn-primary">방명록 남기기
+        <button type="button" class="btn btn-primary">방명록 남기기
         </button>
     </div>
 
@@ -397,7 +400,7 @@
                         </div>
                         <div>
                             <label class="form-label">비밀번호를 입력하세요</label>
-                            <input type="text" class="form-control" id="edit-passward">
+                            <input type="text" class="form-control" id="edit-writtenpassward">
                         </div>
                         <div>
                             <input type="hidden" class="form-control" id="edit-docid">
