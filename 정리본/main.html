@@ -160,38 +160,35 @@
             editCheckBtn.addEventListener("click", async function () {
 
                 const docId = document.querySelector("#edit-docid").value;
-
                 const comment = await getDoc(doc(db, "abc", `${docId}`));
                 const commentData = comment.data();
                 const RightPassward = commentData['pass'];
-
-                const WrittenPassward =
-                    document.querySelector("#edit-writtenpassward").value;
-
-                console.log(`저장된 비밀번호: ${RightPassward}`);
-                console.log(`입력한 비밀번호: ${WrittenPassward}`);
-
-                if (RightPassward != WrittenPassward) {
-                    alert('비밀번호가 틀렸습니다!');
-                    window.location.reload();
-                    return;
-                }
-
+                const WrittenPassward = document.querySelector("#edit-writtenpassward").value;
                 const newComment = {
                     name: document.querySelector("#edit-name").value,
                     content: document.querySelector("#edit-content").value
                 };
 
-                console.log(newComment);
-                console.log(docId);
+                console.log(`저장된 비밀번호: ${RightPassward}`);
+                console.log(`입력한 비밀번호: ${WrittenPassward}`);
 
-                await updateDoc(doc(db, "abc", `${docId}`), {
-                    name: document.querySelector("#edit-name").value,
-                    content: document.querySelector("#edit-content").value
-                });
+                if (RightPassward != WrittenPassward) {
+                    let msg = confirm("비밀번호가 틀렸습니다.")
+                    window.location.reload();
+                    return;
 
-                alert('수정 완료!');
-                window.location.reload();
+                } else {
+                    console.log(newComment);
+                    console.log(docId);
+                    await updateDoc(doc(db, "abc", `${docId}`), {
+                        name: document.querySelector("#edit-name").value,
+                        content: document.querySelector("#edit-content").value
+                    });
+
+                    alert('수정 완료!');
+                    window.location.reload();
+                    return;
+                }
             })
         }
     </script>
